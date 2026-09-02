@@ -1,0 +1,880 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#030407" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="RBUBANK — The Next-Generation European Digital Banking & Wealth Super-App. Multi-currency accounts, SEPA Instant settlement, 4.8% APY Vaults, and Metal Cards." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>RBUBANK — Next-Gen European Digital Banking</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2300f2fe'/><text x='50%' y='68%' font-size='56' font-weight='900' font-family='system-ui' text-anchor='middle' fill='%23000'>R</text></svg>" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient Neobank Aurora Glow -->
+  <div class="aurora" aria-hidden="true"></div>
+
+  <!-- Toast Notification System -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Top Presentation Shell (For European Investors & Desktop Preview) -->
+  <header class="presentation-bar">
+    <div class="presentation-left">
+      <div class="brand-badge">
+        <div class="brand-logo-icon">R</div>
+        <span>RBUBANK</span>
+      </div>
+      <div class="status-live">
+        <span class="pulse-dot"></span>
+        <span>SEPA RT1 Live</span>
+      </div>
+      <span style="color: var(--text-3); font-size: 12px; margin-left: 4px;">• Investor MVP Demo</span>
+    </div>
+
+    <div class="presentation-controls">
+      <button id="btn-mode-mockup" class="mode-btn active" title="Mobile iPhone Frame Preview">
+        <span>📱</span> <span>Phone View</span>
+      </button>
+      <button id="btn-mode-full" class="mode-btn" title="Full Screen Responsive View">
+        <span>💻</span> <span>Responsive</span>
+      </button>
+      <button id="btn-mode-landing" class="mode-btn" title="Investor Pitch Landing Page">
+        <span>🌐</span> <span>Investor Pitch</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Investor Pitch Landing Page View (Hidden by default, toggleable via top bar) -->
+  <section id="landing-view-container" class="landing-view" style="display: none;">
+    <div class="landing-hero">
+      <div class="landing-pill">
+        <span>✦</span> <span>Next-Generation European Digital Banking Architecture</span>
+      </div>
+      <h1 class="landing-title">
+        The Neo-Private Bank<br/>For Europe’s New Economy
+      </h1>
+      <p class="landing-subtitle">
+        Built for founders, digital operators, and international creators. Multi-currency European IBANs, sub-second SEPA Instant settlement, 4.8% APY High-Yield Vaults, and bespoke Obsidian Metal cards.
+      </p>
+
+      <div class="landing-cta-row">
+        <button class="btn-primary" data-action="launch-app" style="width: auto; padding: 14px 28px;">
+          <span>⚡</span> <span>Launch Denis's Live Banking Cabinet</span>
+        </button>
+        <button class="mode-btn" data-action="open-statement" style="padding: 14px 24px; font-size: 14px;">
+          <span>📄</span> <span>View Official Account Statement</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Investor KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-number" style="color: var(--accent-emerald);">$81,400</div>
+        <div class="kpi-label">Annual verified inflow for Denis Rech with steady $6k–$8.5k monthly deposits.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number" style="color: var(--accent-cyan);">&lt; 0.2s</div>
+        <div class="kpi-label">SEPA RT1 / Instant credit transfer execution with zero intermediary fees.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number" style="color: var(--accent-gold);">4.8% APY</div>
+        <div class="kpi-label">Compounded daily treasury vaults powered by European sovereign bonds.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number" style="color: var(--accent-violet);">0% FX</div>
+        <div class="kpi-label">True institutional mid-market exchange rates between USD, EUR, GBP & CHF.</div>
+      </div>
+    </div>
+
+    <!-- Feature Grid -->
+    <div style="margin-top: 40px; text-align: center;">
+      <h2 style="font-size: 28px; font-weight: 800; margin-bottom: 12px;">Full-Stack Wealth & Operating Super-App</h2>
+      <p style="color: var(--text-2); max-width: 600px; margin: 0 auto 36px;">Experience the live prototype with actual real-time state, sound feedback, 3D card controls, and complete 12-month cashflow intelligence.</p>
+      <button class="btn-primary" data-action="launch-app" style="width: auto; margin: 0 auto; padding: 14px 32px;">
+        Open Interactive WebApp
+      </button>
+    </div>
+
+    <div class="branding-footer" style="margin-top: 60px;">
+      Powered by <a href="https://t.me/Denrech" target="_blank" rel="noopener noreferrer">@Denrech</a>
+    </div>
+  </section>
+
+  <!-- Interactive App Shell (Denis's Live Banking Cabinet) -->
+  <main id="shell-wrapper" class="shell-wrapper mockup-mode">
+    <div id="app-shell-container" class="app-container">
+      
+      <!-- iPhone Mockup Header / Dynamic Island -->
+      <div class="mockup-header" aria-hidden="true">
+        <span class="mockup-time">9:41</span>
+        <div class="dynamic-island">
+          <div class="island-camera"></div>
+          <div class="island-sensor"></div>
+        </div>
+        <div class="mockup-icons">
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="currentColor"><path d="M1 8.5h2v2H1zm3.5-3h2v5h-2zm3.5-3h2v8h-2zm3.5-2.5h2v10.5h-2z"/></svg>
+          <svg width="14" height="11" viewBox="0 0 14 11" fill="currentColor"><path d="M7 2a8.7 8.7 0 015.5 2L7 11 1.5 4A8.7 8.7 0 017 2zm0-2a11 11 0 00-7.3 2.7L7 11.5l7.3-8.8A11 11 0 007 0z"/></svg>
+          <svg width="22" height="11" viewBox="0 0 22 11" fill="currentColor"><rect x="1" y="1" width="18" height="9" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="2.5" y="2.5" width="12" height="6" rx="1.5"/><path d="M20.5 4v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Main Scrollable App Content -->
+      <div class="app-content">
+
+        <!-- Top App Bar inside Denis's Cabinet -->
+        <div class="top-app-bar">
+          <div id="user-profile-btn" class="user-profile-header" title="Click to copy Denis's IBAN">
+            <div class="user-avatar">
+              <span id="user-avatar-initials">DR</span>
+              <div class="verified-badge">✓</div>
+            </div>
+            <div class="user-info-text">
+              <div class="user-name-row">
+                <span id="user-display-name" class="user-name">Denis Rech</span>
+                <span id="user-display-tier" class="tier-tag">Founder</span>
+              </div>
+              <span class="account-number-hint">DE89 3704 •••• 00 • Copy IBAN</span>
+            </div>
+          </div>
+
+          <div class="top-bar-actions">
+            <button id="currency-toggle-btn" class="icon-btn" title="Switch currency (USD/EUR/GBP/CHF)">
+              <span style="font-size: 14px; font-weight: 700;">$ ⇄</span>
+            </button>
+            <button data-action="open-statement" class="icon-btn" title="Download Official Statement">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================= TAB 1: HOME VIEW ================= -->
+        <div id="tab-view-home" class="tab-view-content" data-view="home">
+          
+          <!-- Balance Hero Card -->
+          <section class="balance-section">
+            <div id="current-currency-tag" class="currency-badge-pill" title="Active Operating Account">
+              USD Account • Multi-Currency
+            </div>
+
+            <div class="balance-amount-row">
+              <span id="balance-currency-symbol" class="currency-symbol">$</span>
+              <span id="balance-integer" class="balance-integer">38,420</span>
+              <span id="balance-decimals" class="balance-decimals">.50</span>
+              <button id="btn-toggle-eye" class="balance-eye-btn" title="Toggle balance visibility">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+
+            <!-- Mandatory Highlight: ~$80k Annual Inflow Banner -->
+            <div id="annual-inflow-banner" class="annual-inflow-banner" title="Click to view 12-Month Inflows Analytics">
+              <div class="inflow-banner-left">
+                <div class="inflow-icon-bubble">✦</div>
+                <div>
+                  <div class="inflow-banner-title">Annual Verified Inflows</div>
+                  <div id="banner-inflow-count" class="inflow-banner-subtitle">12 monthly deposits ($6k - $8.5k) • Avg $6,783/mo</div>
+                </div>
+              </div>
+              <div id="banner-inflow-total" class="inflow-banner-amount">+$81,400.00</div>
+            </div>
+
+            <!-- Quick Action Circles -->
+            <div class="quick-actions-row">
+              <button class="action-item" data-action="open-send">
+                <div class="action-circle highlight">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                </div>
+                <span class="action-label">Send</span>
+              </button>
+
+              <button class="action-item" data-action="open-receive">
+                <div class="action-circle">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </div>
+                <span class="action-label">Add Money</span>
+              </button>
+
+              <button class="action-item" data-action="open-exchange">
+                <div class="action-circle">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 7h-9m0 0l3-3m-3 3l3 3M4 17h9m0 0l-3 3m3-3l-3-3"/></svg>
+                </div>
+                <span class="action-label">Exchange</span>
+              </button>
+
+              <button class="action-item" data-action="open-statement">
+                <div class="action-circle">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg>
+                </div>
+                <span class="action-label">Statement</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- Quick Send / Recent Recipients -->
+          <div class="section-header">
+            <span class="section-title">Send Again</span>
+            <button class="section-link" data-action="open-send">All Recipients</button>
+          </div>
+          <div id="recents-container" class="recents-scroll-container"></div>
+
+          <!-- Cashflow & Inflow Intelligence Chart Card -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <div class="chart-title-area">
+                <span class="chart-title">12-Month Inflow vs Outflow</span>
+                <span class="chart-metric">+$81,400.00 Inflow</span>
+              </div>
+              <div class="chart-period-tabs">
+                <button class="period-tab" data-period="1M">1M</button>
+                <button class="period-tab" data-period="3M">3M</button>
+                <button class="period-tab" data-period="6M">6M</button>
+                <button class="period-tab active" data-period="1Y">1Y</button>
+              </div>
+            </div>
+
+            <div id="cashflow-svg-chart" class="svg-chart-container"></div>
+
+            <div class="chart-legend">
+              <div class="legend-item">
+                <span class="legend-dot inflow"></span>
+                <span>Inflows ($6k - $8.5k/mo)</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot outflow"></span>
+                <span>Outflows (Expenses)</span>
+              </div>
+              <div style="font-weight: 600; color: #fff;">
+                Net: +$33,150.00
+              </div>
+            </div>
+          </div>
+
+          <!-- Transactions Search & Filter Bar -->
+          <div class="section-header" style="margin-top: 10px;">
+            <span class="section-title">Transactions</span>
+            <div style="position: relative; width: 150px;">
+              <input 
+                id="tx-search-input" 
+                type="text" 
+                placeholder="Search tx..." 
+                style="width: 100%; padding: 6px 10px 6px 28px; border-radius: 20px; background: var(--surface); border: 1px solid var(--hairline-soft); color: #fff; font-size: 11.5px; outline: none;" 
+              />
+              <svg style="position: absolute; left: 8px; top: 7px; color: var(--text-3);" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+          </div>
+
+          <div class="tx-filter-bar">
+            <button class="tx-filter-chip active" data-filter="all">All (20)</button>
+            <button class="tx-filter-chip" data-filter="inflow">Inflows (+$81.4k)</button>
+            <button class="tx-filter-chip" data-filter="outflow">Outflows</button>
+            <button class="tx-filter-chip" data-filter="cards">Cards</button>
+            <button class="tx-filter-chip" data-filter="transfers">Transfers</button>
+          </div>
+
+          <!-- Transaction Ledger Items Container -->
+          <div id="transactions-list-container" class="transactions-list"></div>
+
+          <!-- Mandatory Branding Footer -->
+          <div class="branding-footer">
+            Powered by <a href="https://t.me/Denrech" target="_blank" rel="noopener noreferrer">@Denrech</a>
+          </div>
+        </div>
+
+        <!-- ================= TAB 2: TRANSFERS VIEW ================= -->
+        <div id="tab-view-transfers" class="tab-view-content" data-view="transfers" style="display: none;">
+          <div style="padding: 10px 20px 20px;">
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Transfer & Payments</h2>
+            <p style="font-size: 13px; color: var(--text-2); margin-bottom: 20px;">Sub-second SEPA Instant, International SWIFT wires, and direct P2P settlements.</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+              <button class="btn-primary" data-action="open-send" style="padding: 18px 14px; font-size: 14px; flex-direction: column; gap: 6px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                <span>Send Money</span>
+              </button>
+              <button class="btn-primary" data-action="open-receive" style="background: var(--surface-strong); color: #fff; border: 1px solid var(--hairline); padding: 18px 14px; font-size: 14px; flex-direction: column; gap: 6px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                <span>Receive / IBAN</span>
+              </button>
+            </div>
+
+            <!-- Currency Exchange Quick Widget -->
+            <div class="chart-card" style="margin: 0 0 24px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                <span style="font-size: 14px; font-weight: 700;">Live FX Instant Converter</span>
+                <span style="font-size: 11px; color: var(--accent-emerald); font-weight: 600;">0% Markups</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <input id="fx-from-amount" type="number" value="1000" style="flex: 1; padding: 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--hairline); color: #fff; font-size: 16px; font-weight: 700;" />
+                <select id="fx-from-currency" style="padding: 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--hairline); color: #fff; font-weight: 700;">
+                  <option value="USD" selected>USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="CHF">CHF</option>
+                </select>
+                <button id="btn-swap-fx" class="icon-btn" style="width: 38px; height: 38px;">⇄</button>
+                <input id="fx-to-amount" type="text" value="917.40" readonly style="flex: 1; padding: 12px; border-radius: 12px; background: rgba(0, 242, 254, 0.06); border: 1px solid rgba(0, 242, 254, 0.2); color: var(--accent-cyan); font-size: 16px; font-weight: 700;" />
+                <select id="fx-to-currency" style="padding: 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--hairline); color: #fff; font-weight: 700;">
+                  <option value="USD">USD</option>
+                  <option value="EUR" selected>EUR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="CHF">CHF</option>
+                </select>
+              </div>
+              <button id="btn-confirm-exchange" class="btn-primary" style="padding: 12px; font-size: 13px;">
+                Convert at Interbank Rate
+              </button>
+            </div>
+
+            <!-- Scheduled / Recurring Wires -->
+            <div class="section-title" style="margin-bottom: 12px;">Scheduled & Automated Standing Orders</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div class="tx-item">
+                <div class="tx-left">
+                  <div class="tx-icon-box">🏠</div>
+                  <div class="tx-info">
+                    <div class="tx-title">Düsseldorf Penthouse Lease</div>
+                    <div class="tx-meta">1st of every month • SEPA Direct Debit</div>
+                  </div>
+                </div>
+                <div class="tx-amount outflow">-$2,450.00</div>
+              </div>
+              <div class="tx-item">
+                <div class="tx-left">
+                  <div class="tx-icon-box">🏦</div>
+                  <div class="tx-info">
+                    <div class="tx-title">Treasury Vault Auto-Stash (4.8% APY)</div>
+                    <div class="tx-meta">Every Friday • 10% of Inflow</div>
+                  </div>
+                </div>
+                <div class="tx-amount" style="color: var(--accent-cyan);">Auto-Save</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="branding-footer">
+            Powered by <a href="https://t.me/Denrech" target="_blank" rel="noopener noreferrer">@Denrech</a>
+          </div>
+        </div>
+
+        <!-- ================= TAB 3: CARDS VIEW ================= -->
+        <div id="tab-view-cards" class="tab-view-content" data-view="cards" style="display: none;">
+          <div class="cards-view-container">
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 4px;">Cards & Security</h2>
+            <p style="font-size: 13px; color: var(--text-2); margin-bottom: 18px;">Click card to flip and view 3D interactive controls.</p>
+
+            <!-- 3D Interactive Card Stage -->
+            <div class="card-stage">
+              <div id="main-card-3d" class="card-3d">
+                <!-- FRONT FACE -->
+                <div class="card-face front">
+                  <div class="card-top-row">
+                    <span class="card-brand-name">RBUBANK</span>
+                    <span style="font-size: 11px; font-weight: 700; color: var(--accent-cyan); letter-spacing: 0.08em;">FOUNDER METAL</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 14px;">
+                    <div class="card-chip"></div>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0114.08 0M1.42 9a16 16 0 0121.16 0M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>
+                  </div>
+                  <div id="card-display-number" class="card-number-row">
+                    •••• •••• •••• 8821
+                  </div>
+                  <div class="card-bottom-row">
+                    <div>
+                      <div style="font-size: 9px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 0.05em;">Cardholder</div>
+                      <div class="card-holder-name">DENIS RECH</div>
+                    </div>
+                    <div>
+                      <div style="font-size: 9px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 0.05em;">Expires</div>
+                      <div class="card-expiry">09/29</div>
+                    </div>
+                    <div>
+                      <svg width="36" height="22" viewBox="0 0 36 22">
+                        <circle cx="12" cy="11" r="10" fill="#EB001B" fill-opacity="0.85"/>
+                        <circle cx="24" cy="11" r="10" fill="#F79E1B" fill-opacity="0.85"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BACK FACE -->
+                <div class="card-face back">
+                  <div class="card-magstripe"></div>
+                  <div style="background: #fff; padding: 6px 12px; border-radius: 4px; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 12px;">
+                    <span style="color: #000; font-family: monospace; font-size: 13px; font-weight: 700;" id="card-display-cvv">•••</span>
+                  </div>
+                  <div style="font-size: 9.5px; color: rgba(255,255,255,0.5); line-height: 1.3;">
+                    Authorized signature • This card is issued by RBUBANK SE pursuant to a license by Mastercard International. For VIP concierge: +49 170 882 9104.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Actions Row -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 24px;">
+              <button id="btn-freeze-card" class="btn-primary" style="background: var(--surface); color: #fff; border: 1px solid var(--hairline); padding: 12px 6px; font-size: 12px; flex-direction: column; gap: 4px;">
+                <span>❄️</span>
+                <span id="freeze-btn-text">Freeze Card</span>
+              </button>
+              <button id="btn-reveal-details" class="btn-primary" style="background: var(--surface); color: #fff; border: 1px solid var(--hairline); padding: 12px 6px; font-size: 12px; flex-direction: column; gap: 4px;">
+                <span>👁️</span>
+                <span>Show Details</span>
+              </button>
+              <button id="btn-flip-card" class="btn-primary" style="background: var(--surface); color: #fff; border: 1px solid var(--hairline); padding: 12px 6px; font-size: 12px; flex-direction: column; gap: 4px;">
+                <span>🔄</span>
+                <span>Flip Card</span>
+              </button>
+            </div>
+
+            <!-- Monthly Limit Slider Control -->
+            <div class="chart-card" style="margin: 0 0 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-size: 13px; font-weight: 600;">Monthly Spending Limit</span>
+                <span id="card-limit-val" style="font-size: 15px; font-weight: 800; color: var(--accent-cyan);">$25,000</span>
+              </div>
+              <input id="card-limit-slider" type="range" min="1000" max="50000" step="1000" value="25000" style="width: 100%; accent-color: var(--accent-cyan);" />
+              <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3); margin-top: 6px;">
+                <span>$1,000</span>
+                <span>Spent: $6,420.50</span>
+                <span>$50,000</span>
+              </div>
+            </div>
+
+            <!-- Apple Wallet Button -->
+            <button class="btn-primary" onclick="window.showToast('Card synced with Apple Wallet & TouchID ')" style="background: #000; border: 1px solid rgba(255,255,255,0.25); color: #fff; margin-bottom: 16px;">
+              <span> Add to Apple Wallet</span>
+            </button>
+          </div>
+
+          <div class="branding-footer">
+            Powered by <a href="https://t.me/Denrech" target="_blank" rel="noopener noreferrer">@Denrech</a>
+          </div>
+        </div>
+
+        <!-- ================= TAB 4: ANALYTICS & INFLOWS VIEW ================= -->
+        <div id="tab-view-analytics" class="tab-view-content" data-view="analytics" style="display: none;">
+          <div style="padding: 10px 20px 20px;">
+            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 4px;">Cashflow & Inflow Intelligence</h2>
+            <p style="font-size: 13px; color: var(--text-2); margin-bottom: 18px;">Complete financial breakdown of the past 12 operating months.</p>
+
+            <!-- Big Stat Box for $80k Inflow -->
+            <div style="background: linear-gradient(135deg, rgba(0, 230, 118, 0.12), rgba(0, 242, 254, 0.08)); border: 1px solid rgba(0, 230, 118, 0.3); border-radius: 20px; padding: 20px; margin-bottom: 20px;">
+              <div style="font-size: 11px; color: var(--accent-emerald); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Total 12-Month Inflows</div>
+              <div style="font-size: 38px; font-weight: 900; color: var(--accent-emerald); margin: 6px 0;">+$81,400.00</div>
+              <div style="font-size: 13px; color: rgba(255, 255, 255, 0.85); line-height: 1.4;">
+                Denis received 12 consecutive monthly advisory and software retainers ranging strictly between <strong>$6,200 and $7,500</strong> per month.
+              </div>
+            </div>
+
+            <!-- Detailed Monthly Ledger List -->
+            <div class="section-title" style="margin-bottom: 12px;">Monthly Breakdown Ledger (Past 12 Months)</div>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">September 2026</div>
+                  <div class="tx-meta">SEPA Retainer + Consulting</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,400.00</div>
+                  <div class="tx-status-sub">Outflows: -$3,600.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">August 2026</div>
+                  <div class="tx-meta">SWIFT Architecture Payout</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$7,100.00</div>
+                  <div class="tx-status-sub">Outflows: -$4,100.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">July 2026</div>
+                  <div class="tx-meta">European SaaS Distribution</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$7,200.00</div>
+                  <div class="tx-status-sub">Outflows: -$4,300.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">June 2026</div>
+                  <div class="tx-meta">Fintech Core Architecture Review</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,800.00</div>
+                  <div class="tx-status-sub">Outflows: -$3,900.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">May 2026</div>
+                  <div class="tx-meta">Enterprise Retainer Retainer</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,700.00</div>
+                  <div class="tx-status-sub">Outflows: -$4,100.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">April 2026</div>
+                  <div class="tx-meta">Venture Advisory Payout</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,300.00</div>
+                  <div class="tx-status-sub">Outflows: -$3,650.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">March 2026</div>
+                  <div class="tx-meta">Trading Engine Licensing</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$7,100.00</div>
+                  <div class="tx-status-sub">Outflows: -$4,200.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">February 2026</div>
+                  <div class="tx-meta">Cloud Systems Retainer</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,900.00</div>
+                  <div class="tx-status-sub">Outflows: -$3,850.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">January 2026</div>
+                  <div class="tx-meta">Q1 Tech Strategy Payout</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,200.00</div>
+                  <div class="tx-status-sub">Outflows: -$3,700.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">December 2025</div>
+                  <div class="tx-meta">Annual Performance Bonus & Retainer</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$7,500.00</div>
+                  <div class="tx-status-sub">Outflows: -$4,800.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">November 2025</div>
+                  <div class="tx-meta">Distributed Mesh Retainer</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,800.00</div>
+                  <div class="tx-status-sub">Outflows: -$4,100.00</div>
+                </div>
+              </div>
+
+              <div class="tx-item">
+                <div class="tx-info">
+                  <div class="tx-title">October 2025</div>
+                  <div class="tx-meta">Digital Banking Labs Retainer</div>
+                </div>
+                <div class="tx-right">
+                  <div class="tx-amount inflow">+$6,400.00</div>
+                  <div class="tx-status-sub">Outflows: -$3,950.00</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Export Statement CTA -->
+            <button data-action="open-statement" class="btn-primary">
+              <span>📄 Generate Official Statement (PDF/Print)</span>
+            </button>
+          </div>
+
+          <div class="branding-footer">
+            Powered by <a href="https://t.me/Denrech" target="_blank" rel="noopener noreferrer">@Denrech</a>
+          </div>
+        </div>
+
+        <!-- ================= TAB 5: VAULTS & WEALTH VIEW ================= -->
+        <div id="tab-view-vaults" class="tab-view-content" data-view="vaults" style="display: none;">
+          <div style="padding: 10px 20px 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px;">
+              <div>
+                <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 4px;">Treasury & Vaults</h2>
+                <p style="font-size: 13px; color: var(--text-2);">4.8% APY daily compounded high-yield savings.</p>
+              </div>
+              <button class="btn-primary" onclick="window.showToast('New Vault Creator opened 🏦')" style="width: auto; padding: 8px 16px; font-size: 12px; border-radius: 20px;">
+                + New Vault
+              </button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+              <!-- Vault 1 -->
+              <div class="chart-card" style="margin: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 15px; font-weight: 700;">Treasury & Tax Reserve</span>
+                  <span style="font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--accent-emerald-soft); color: var(--accent-emerald); font-weight: 700;">4.8% APY</span>
+                </div>
+                <div style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 10px;">$14,500.00</div>
+                <div style="background: var(--surface); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 8px;">
+                  <div style="width: 58%; height: 100%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3);">
+                  <span>Target: $25,000.00</span>
+                  <span>58% funded</span>
+                </div>
+              </div>
+
+              <!-- Vault 2 -->
+              <div class="chart-card" style="margin: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 15px; font-weight: 700;">Porsche 911 GT3 Allocation</span>
+                  <span style="font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--accent-emerald-soft); color: var(--accent-emerald); font-weight: 700;">4.8% APY</span>
+                </div>
+                <div style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 10px;">$8,000.00</div>
+                <div style="background: var(--surface); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 8px;">
+                  <div style="width: 15%; height: 100%; background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3);">
+                  <span>Target: $180,000.00</span>
+                  <span>4.4% funded</span>
+                </div>
+              </div>
+
+              <!-- Vault 3 -->
+              <div class="chart-card" style="margin: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 15px; font-weight: 700;">St. Moritz Winter Chalet</span>
+                  <span style="font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--accent-emerald-soft); color: var(--accent-emerald); font-weight: 700;">4.8% APY</span>
+                </div>
+                <div style="font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 10px;">$2,000.00</div>
+                <div style="background: var(--surface); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 8px;">
+                  <div style="width: 33%; height: 100%; background: linear-gradient(90deg, var(--accent-violet), var(--accent-rose));"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3);">
+                  <span>Target: $6,000.00</span>
+                  <span>33% funded</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="branding-footer">
+            Powered by <a href="https://t.me/Denrech" target="_blank" rel="noopener noreferrer">@Denrech</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Floating Tab Bar -->
+      <nav class="tabbar">
+        <button class="tab-btn active" data-tab="home">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          <span class="tab-label">Home</span>
+        </button>
+
+        <button class="tab-btn" data-tab="transfers">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          <span class="tab-label">Transfers</span>
+        </button>
+
+        <button class="tab-btn" data-tab="cards">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          <span class="tab-label">Cards</span>
+        </button>
+
+        <button class="tab-btn" data-tab="analytics">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          <span class="tab-label">Analytics</span>
+        </button>
+
+        <button class="tab-btn" data-tab="vaults">
+          <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span class="tab-label">Vaults</span>
+        </button>
+      </nav>
+
+    </div>
+  </main>
+
+  <!-- ================= MODALS & BOTTOM DRAWERS ================= -->
+
+  <!-- 1. Send Money Modal -->
+  <div id="modal-send" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <div class="modal-title">Send Money</div>
+        <button class="btn-close btn-close-modal">✕</button>
+      </div>
+
+      <form id="send-money-form">
+        <!-- Recipient input -->
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 12px; color: var(--text-2); margin-bottom: 6px; font-weight: 600;">Recipient (Name, IBAN or @handle)</label>
+          <input id="send-recipient-input" type="text" value="Elena V." required placeholder="e.g. Elena V. or DE89..." style="width: 100%; padding: 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--hairline); color: #fff; font-size: 15px; outline: none;" />
+        </div>
+
+        <!-- Quick Recipient Selectors -->
+        <div style="display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto;">
+          <button type="button" class="send-recipient-pill selected mode-btn" data-name="Elena V.">Elena V.</button>
+          <button type="button" class="send-recipient-pill mode-btn" data-name="Lukas Meyer">Lukas M. (Zurich)</button>
+          <button type="button" class="send-recipient-pill mode-btn" data-name="Alex Tech">Alex Tech</button>
+          <button type="button" class="send-recipient-pill mode-btn" data-name="Sophie Bernard">Sophie B.</button>
+        </div>
+
+        <!-- Amount input -->
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 12px; color: var(--text-2); margin-bottom: 6px; font-weight: 600;">Amount</label>
+          <div style="position: relative;">
+            <span style="position: absolute; left: 14px; top: 12px; font-size: 20px; font-weight: 700; color: var(--text-2);">$</span>
+            <input id="send-amount-input" type="number" step="0.01" min="1" required placeholder="0.00" style="width: 100%; padding: 12px 14px 12px 34px; border-radius: 12px; background: var(--surface); border: 1px solid var(--hairline); color: #fff; font-size: 22px; font-weight: 800; outline: none;" />
+          </div>
+        </div>
+
+        <!-- Quick amount buttons -->
+        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+          <button type="button" class="quick-amount-btn mode-btn" data-amount="50">+$50</button>
+          <button type="button" class="quick-amount-btn mode-btn" data-amount="200">+$200</button>
+          <button type="button" class="quick-amount-btn mode-btn" data-amount="500">+$500</button>
+          <button type="button" class="quick-amount-btn mode-btn" data-amount="1000">+$1,000</button>
+        </div>
+
+        <!-- Note input -->
+        <div style="margin-bottom: 24px;">
+          <label style="display: block; font-size: 12px; color: var(--text-2); margin-bottom: 6px; font-weight: 600;">Reference Note (Optional)</label>
+          <input id="send-note-input" type="text" placeholder="e.g. Advisory invoice / dinner split" style="width: 100%; padding: 12px; border-radius: 12px; background: var(--surface); border: 1px solid var(--hairline); color: #fff; font-size: 14px; outline: none;" />
+        </div>
+
+        <!-- Routing Information -->
+        <div style="background: rgba(0, 242, 254, 0.05); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 12px; padding: 12px; margin-bottom: 24px; font-size: 12px; color: var(--text-2); display: flex; justify-content: space-between;">
+          <span>Routing Method: <strong>SEPA Instant (0s)</strong></span>
+          <span style="color: var(--accent-emerald); font-weight: 700;">Fee: $0.00 Free</span>
+        </div>
+
+        <button id="btn-confirm-send" type="submit" class="btn-primary">
+          <span>Send Transfer ⚡</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. Receive Money / IBAN QR Sheet -->
+  <div id="modal-receive" class="modal-overlay">
+    <div class="modal-sheet" style="text-align: center;">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <div class="modal-title">Deposit / Receive Funds</div>
+        <button class="btn-close btn-close-modal">✕</button>
+      </div>
+
+      <div style="background: #fff; padding: 16px; border-radius: 18px; width: 170px; height: 170px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <!-- Simulated High-Precision QR Code SVG -->
+        <svg width="140" height="140" viewBox="0 0 100 100" fill="#000">
+          <rect x="0" y="0" width="30" height="30" rx="4"/>
+          <rect x="5" y="5" width="20" height="20" fill="#fff" rx="2"/>
+          <rect x="10" y="10" width="10" height="10"/>
+          
+          <rect x="70" y="0" width="30" height="30" rx="4"/>
+          <rect x="75" y="5" width="20" height="20" fill="#fff" rx="2"/>
+          <rect x="80" y="10" width="10" height="10"/>
+
+          <rect x="0" y="70" width="30" height="30" rx="4"/>
+          <rect x="5" y="75" width="20" height="20" fill="#fff" rx="2"/>
+          <rect x="10" y="80" width="10" height="10"/>
+
+          <rect x="40" y="10" width="8" height="20"/>
+          <rect x="50" y="25" width="12" height="8"/>
+          <rect x="40" y="45" width="20" height="12"/>
+          <rect x="68" y="45" width="14" height="22"/>
+          <rect x="40" y="70" width="16" height="20"/>
+          <rect x="65" y="75" width="25" height="15"/>
+        </svg>
+      </div>
+
+      <div style="font-size: 12px; color: var(--text-2); margin-bottom: 4px;">Beneficiary Name</div>
+      <div style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Denis Rech</div>
+
+      <div style="background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 12px; margin-bottom: 12px; text-align: left;">
+        <div style="font-size: 10px; color: var(--text-3); text-transform: uppercase;">European IBAN</div>
+        <div style="font-size: 14px; font-weight: 700; font-family: monospace; margin-top: 2px;">DE89 3704 0044 0532 0130 00</div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 12px; margin-bottom: 24px; text-align: left;">
+        <div style="font-size: 10px; color: var(--text-3); text-transform: uppercase;">BIC / SWIFT</div>
+        <div style="font-size: 14px; font-weight: 700; font-family: monospace; margin-top: 2px;">RBUBDEFFXXX</div>
+      </div>
+
+      <button class="btn-primary" onclick="navigator.clipboard?.writeText('DE89370400440532013000'); window.showToast('IBAN copied to clipboard 📋');">
+        Copy IBAN Details
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Transaction Detail Drawer -->
+  <div id="modal-tx-detail" class="modal-overlay">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <div class="modal-title">Transaction Receipt</div>
+        <button class="btn-close btn-close-modal">✕</button>
+      </div>
+
+      <div style="text-align: center; margin-bottom: 20px;">
+        <div id="modal-tx-amount" class="modal-detail-amount" style="font-size: 36px; font-weight: 900; letter-spacing: -0.02em;">+$6,400.00</div>
+        <div id="modal-tx-title" style="font-size: 15px; font-weight: 600; color: #fff; margin-top: 4px;">European FinTech Advisory Retainer</div>
+        <div id="modal-tx-status" style="display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: var(--accent-emerald-soft); color: var(--accent-emerald); margin-top: 8px;">COMPLETED</div>
+      </div>
+
+      <div style="background: var(--surface); border: 1px solid var(--hairline); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px; font-size: 13px; margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-3);">Counterparty</span>
+          <span id="modal-tx-counterparty" style="font-weight: 600; text-align: right;">Venture FinTech Partners AG</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-3);">Timestamp</span>
+          <span id="modal-tx-date" style="font-weight: 500;">2026-09-02 at 14:28</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-3);">Clearing Network</span>
+          <span id="modal-tx-clearing" style="font-weight: 500;">EBA CLEARING / RT1 Instant</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-3);">Reference Code</span>
+          <span id="modal-tx-ref" style="font-family: monospace; font-weight: 600;">RBU-SEPA-8890214</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: var(--text-3);">Reference Note</span>
+          <span id="modal-tx-note" style="font-weight: 500; text-align: right; max-width: 60%;">Monthly retainer Q3</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="window.showToast('Certified Transaction Receipt downloaded 📥');">
+        Download Proof of Transfer (PDF)
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
