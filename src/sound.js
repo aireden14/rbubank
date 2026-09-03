@@ -17,6 +17,11 @@ class SoundManager {
     }
   }
 
+  toggle() {
+    this.enabled = !this.enabled;
+    return this.enabled;
+  }
+
   playTap() {
     if (!this.enabled) return;
     this.init();

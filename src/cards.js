@@ -1,5 +1,6 @@
 // RBUBANK — Cards Manager Module
-// Handles 3D Card tilt/flip, freeze/unfreeze state, PIN/CVV revelation, and spending limits
+// Handles 3D Card tilt/flip, freeze/unfreeze state, PIN/CVV revelation, spending limits,
+// virtual card generation, and card security toggles
 
 import { sounds } from './sound.js';
 
@@ -23,7 +24,6 @@ export function setupCardsUI(user, onCardUpdate) {
 
   if (flipBtn) flipBtn.addEventListener('click', toggleFlip);
   cardElement.addEventListener('click', (e) => {
-    // Avoid triggering when clicking interactive child controls
     if (!e.target.closest('button')) {
       toggleFlip();
     }
@@ -66,7 +66,7 @@ export function setupCardsUI(user, onCardUpdate) {
     });
   }
 
-  // Subtle Mouse Parallax / 3D Tilt on Desktop
+  // Mouse Parallax on Desktop
   cardElement.addEventListener('mousemove', (e) => {
     if (cardElement.classList.contains('flipped')) return;
     const rect = cardElement.getBoundingClientRect();
@@ -82,6 +82,86 @@ export function setupCardsUI(user, onCardUpdate) {
       cardElement.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
     }
   });
+
+  // + New Virtual Card Generator
+  const newCardBtn = document.getElementById('btn-add-virtual-card');
+  if (newCardBtn) {
+    newCardBtn.addEventListener('click', () => {
+      sounds.playSuccess();
+      const rand4 = () => Math.floor(1000 + Math.random() * 9000);
+      const newCard = {
+        id: `card-virtual-${Date.now()}`,
+        type: "virtual",
+        tier: "Single-Use Disposable Virtual",
+        brand: "Visa Infinite",
+        number: `4820 ${rand4()} ${rand4()} ${rand4()}`,
+        numberMasked: `•••• •••• •••• ${rand4()}`,
+        expiry: "09/29",
+        cvv: `${Math.floor(100 + Math.random() * 900)}`,
+        holder: "DENIS RECH",
+        isFrozen: false,
+        isPinRevealed: false,
+        monthlyLimit: 5000,
+        spentThisMonth: 0,
+        contactlessEnabled: true,
+        onlinePurchasesEnabled: true,
+        atmWithdrawalsEnabled: false
+      };
+      user.cards.push(newCard);
+      if (window.showToast) {
+        window.showToast(`New Disposable Virtual Card created 💳 (${newCard.number.slice(-4)})`);
+      }
+    });
+  }
+
+  // Security Toggles inside Cards View
+  const toggleContactless = document.getElementById('toggle-card-contactless');
+  if (toggleContactless) {
+    toggleContactless.addEventListener('change', (e) => {
+      sounds.playTap();
+      currentCard.contactlessEnabled = e.target.checked;
+      if (window.showToast) {
+        window.showToast(currentCard.contactlessEnabled ? "Contactless & Apple Pay active 📶" : "Contactless disabled");
+      }
+    });
+  }
+
+  const toggleOnline = document.getElementById('toggle-card-online');
+  if (toggleOnline) {
+    toggleOnline.addEventListener('change', (e) => {
+      sounds.playTap();
+      currentCard.onlinePurchasesEnabled = e.target.checked;
+      if (window.showToast) {
+        window.showToast(currentCard.onlinePurchasesEnabled ? "Online e-commerce enabled 🌐" : "Online transactions blocked");
+      }
+    });
+  }
+
+  const toggleAtm = document.getElementById('toggle-card-atm');
+  if (toggleAtm) {
+    toggleAtm.addEventListener('change', (e) => {
+      sounds.playTap();
+      currentCard.atmWithdrawalsEnabled = e.target.checked;
+      if (window.showToast) {
+        window.showToast(currentCard.atmWithdrawalsEnabled ? "ATM cash withdrawals enabled 🏧" : "ATM withdrawals disabled");
+      }
+    });
+  }
+
+  // Change PIN modal trigger
+  const changePinBtn = document.getElementById('btn-change-pin');
+  if (changePinBtn) {
+    changePinBtn.addEventListener('click', () => {
+      sounds.playTap();
+      const newPin = prompt("Enter new 4-digit PIN for your Metal Card:", "8421");
+      if (newPin && newPin.length === 4) {
+        sounds.playSuccess();
+        if (window.showToast) {
+          window.showToast("Metal Card PIN updated successfully in Secure Element 🔒");
+        }
+      }
+    });
+  }
 }
 
 function updateFreezeVisuals(card) {

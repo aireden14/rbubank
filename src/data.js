@@ -75,7 +75,7 @@ export const INITIAL_USER = {
   vaults: [
     {
       id: "vault-1",
-      title: "Treasury & High-Yield Reserve",
+      title: "Treasury & Tax Reserve",
       balance: 14500.00,
       target: 25000.00,
       apy: 4.8,
@@ -129,8 +129,9 @@ export const MONTHLY_SUMMARY = [
   { month: "Sep 26", label: "September 2026", inflow: 6400, outflow: 3600, net: 2800 }
 ];
 
-// Complete Real-world Neobanking Transactions Ledger
+// Complete Real-world Neobanking Transactions Ledger (55+ Detailed Entries across all 12 Months)
 export const INITIAL_TRANSACTIONS = [
+  // --- September 2026 ---
   {
     id: "tx-2026-09-02-1",
     date: "2026-09-02",
@@ -165,6 +166,25 @@ export const INITIAL_TRANSACTIONS = [
     note: "Monthly residence lease Königsallee 42",
     clearingHouse: "SEPA Core Direct Debit"
   },
+  {
+    id: "tx-2026-09-01-2",
+    date: "2026-09-01",
+    time: "18:22",
+    title: "Blue Bottle Coffee",
+    counterparty: "Blue Bottle Europe",
+    category: "Dining",
+    amount: -18.50,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Apple Pay / Metal Debit",
+    referenceCode: "POS-BBC-BER-104",
+    icon: "coffee",
+    note: "Artisanal espresso blend",
+    clearingHouse: "Mastercard Global Network"
+  },
+
+  // --- August 2026 ---
   {
     id: "tx-2026-08-28-1",
     date: "2026-08-28",
@@ -267,6 +287,8 @@ export const INITIAL_TRANSACTIONS = [
     note: "GPU clusters and Frankfurt low-latency nodes",
     clearingHouse: "Visa Direct"
   },
+
+  // --- July 2026 ---
   {
     id: "tx-2026-07-28-1",
     date: "2026-07-28",
@@ -283,6 +305,23 @@ export const INITIAL_TRANSACTIONS = [
     icon: "plane",
     note: "Frankfurt to Zurich European Fintech Summit",
     clearingHouse: "Mastercard Global Network"
+  },
+  {
+    id: "tx-2026-07-20-1",
+    date: "2026-07-20",
+    time: "13:40",
+    title: "Porsche Financial Services",
+    counterparty: "Porsche Financial Services GmbH",
+    category: "Travel & Transport",
+    amount: -1450.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "SEPA Direct Debit",
+    referenceCode: "PFS-LEAS-99120",
+    icon: "car",
+    note: "Executive vehicle leasing payment",
+    clearingHouse: "SEPA Core Direct Debit"
   },
   {
     id: "tx-2026-07-16-1",
@@ -302,6 +341,25 @@ export const INITIAL_TRANSACTIONS = [
     clearingHouse: "EBA CLEARING / RT1 Instant"
   },
   {
+    id: "tx-2026-07-10-1",
+    date: "2026-07-10",
+    time: "19:15",
+    title: "Baur au Lac Zurich Dining",
+    counterparty: "Baur au Lac Hotel Management",
+    category: "Dining",
+    amount: -290.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Mastercard Metal Debit",
+    referenceCode: "POS-BAL-ZUR-81",
+    icon: "utensils",
+    note: "Lakeside investor networking dinner",
+    clearingHouse: "Mastercard Global Network"
+  },
+
+  // --- June 2026 ---
+  {
     id: "tx-2026-06-25-1",
     date: "2026-06-25",
     time: "14:15",
@@ -317,6 +375,23 @@ export const INITIAL_TRANSACTIONS = [
     icon: "refresh-cw",
     note: "Interbank cross-border liquidity transfer",
     clearingHouse: "SEPA Instant Credit Transfer"
+  },
+  {
+    id: "tx-2026-06-18-1",
+    date: "2026-06-18",
+    time: "12:30",
+    title: "KaDeWe Berlin Gourmet & Living",
+    counterparty: "The KaDeWe Group GmbH",
+    category: "Dining",
+    amount: -215.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Apple Pay / Metal Debit",
+    referenceCode: "POS-KDW-BER-401",
+    icon: "shopping-bag",
+    note: "Gourmet department floor provisions",
+    clearingHouse: "Mastercard Global Network"
   },
   {
     id: "tx-2026-06-14-1",
@@ -336,6 +411,42 @@ export const INITIAL_TRANSACTIONS = [
     clearingHouse: "EBA CLEARING / RT1 Instant"
   },
   {
+    id: "tx-2026-06-08-1",
+    date: "2026-06-08",
+    time: "17:00",
+    title: "SBB Swiss Federal Rail First Class",
+    counterparty: "SBB CFF FFS (Bern)",
+    category: "Travel & Transport",
+    amount: -165.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Mastercard Metal Debit",
+    referenceCode: "TKT-SBB-ZUR-GVA",
+    icon: "train",
+    note: "Zurich to Geneva Executive Transit",
+    clearingHouse: "SIX Swiss Exchange"
+  },
+
+  // --- May 2026 ---
+  {
+    id: "tx-2026-05-24-1",
+    date: "2026-05-24",
+    time: "21:30",
+    title: "Soho House Berlin Dining & Lounge",
+    counterparty: "Soho House Berlin GmbH",
+    category: "Dining",
+    amount: -340.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Mastercard Metal Debit",
+    referenceCode: "POS-SH-BER-902",
+    icon: "utensils",
+    note: "Private club dinner with European founders",
+    clearingHouse: "Mastercard Global Network"
+  },
+  {
     id: "tx-2026-05-18-1",
     date: "2026-05-18",
     time: "13:20",
@@ -353,6 +464,76 @@ export const INITIAL_TRANSACTIONS = [
     clearingHouse: "EBA CLEARING / RT1 Instant"
   },
   {
+    id: "tx-2026-05-12-1",
+    date: "2026-05-12",
+    time: "14:10",
+    title: "Anthropic API & Claude Enterprise",
+    counterparty: "Anthropic PBC",
+    category: "Tech & Software",
+    amount: -280.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Cyber Virtual Card",
+    referenceCode: "INV-ANT-CLD-551",
+    icon: "cpu",
+    note: "Autonomous agents & inference compute token block",
+    clearingHouse: "Visa Direct"
+  },
+  {
+    id: "tx-2026-05-02-1",
+    date: "2026-05-02",
+    time: "11:00",
+    title: "Düsseldorf Prime Penthouse Rent",
+    counterparty: "Immobilien Königsallee GmbH",
+    category: "Housing",
+    amount: -2450.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "SEPA Direct Debit",
+    referenceCode: "SDD-KALL-2026-05",
+    icon: "home",
+    note: "Monthly residence lease Königsallee 42",
+    clearingHouse: "SEPA Core Direct Debit"
+  },
+
+  // --- April 2026 ---
+  {
+    id: "tx-2026-04-26-1",
+    date: "2026-04-26",
+    time: "16:45",
+    title: "Eurostar Business Premier",
+    counterparty: "Eurostar International Ltd",
+    category: "Travel & Transport",
+    amount: -310.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Apple Pay / Metal Debit",
+    referenceCode: "TKT-EURST-PAR-LON",
+    icon: "train",
+    note: "Paris Gare du Nord to London St Pancras",
+    clearingHouse: "Mastercard Global Network"
+  },
+  {
+    id: "tx-2026-04-20-1",
+    date: "2026-04-20",
+    time: "18:00",
+    title: "Keychron Mechanical Lab",
+    counterparty: "Keychron Europe",
+    category: "Tech & Software",
+    amount: -195.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Cyber Virtual Card",
+    referenceCode: "POS-KEY-DE-202",
+    icon: "keyboard",
+    note: "Q-Series wireless custom mechanical board",
+    clearingHouse: "Visa Direct"
+  },
+  {
     id: "tx-2026-04-15-1",
     date: "2026-04-15",
     time: "09:50",
@@ -368,6 +549,42 @@ export const INITIAL_TRANSACTIONS = [
     icon: "arrow-down-left",
     note: "Angel portfolio technical audits & advisory",
     clearingHouse: "EBA CLEARING / RT1 Instant"
+  },
+
+  // --- March 2026 ---
+  {
+    id: "tx-2026-03-28-1",
+    date: "2026-03-28",
+    time: "11:30",
+    title: "UBS Zurich ATM Cash Withdrawal",
+    counterparty: "UBS Switzerland AG",
+    category: "Cash & ATM",
+    amount: -600.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Mastercard Metal Debit",
+    referenceCode: "ATM-UBS-ZUR-994",
+    icon: "banknote",
+    note: "CHF 550 executive cash withdrawal",
+    clearingHouse: "SIX Swiss Exchange"
+  },
+  {
+    id: "tx-2026-03-22-1",
+    date: "2026-03-22",
+    time: "14:15",
+    title: "Transfer to Lukas Meyer",
+    counterparty: "Lukas Meyer (@lukas_ch)",
+    category: "Transfers",
+    amount: -350.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Internal RBU P2P",
+    referenceCode: "RBU-P2P-LUKAS-03",
+    icon: "send",
+    note: "Shared Zurich data center co-location share",
+    clearingHouse: "RBU Instant P2P Ledger"
   },
   {
     id: "tx-2026-03-12-1",
@@ -387,6 +604,59 @@ export const INITIAL_TRANSACTIONS = [
     clearingHouse: "EBA CLEARING / RT1 Instant"
   },
   {
+    id: "tx-2026-03-02-1",
+    date: "2026-03-02",
+    time: "10:00",
+    title: "Düsseldorf Prime Penthouse Rent",
+    counterparty: "Immobilien Königsallee GmbH",
+    category: "Housing",
+    amount: -2450.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "SEPA Direct Debit",
+    referenceCode: "SDD-KALL-2026-03",
+    icon: "home",
+    note: "Monthly residence lease Königsallee 42",
+    clearingHouse: "SEPA Core Direct Debit"
+  },
+
+  // --- February 2026 ---
+  {
+    id: "tx-2026-02-25-1",
+    date: "2026-02-25",
+    time: "17:15",
+    title: "Teenage Engineering OP-1 Field",
+    counterparty: "Teenage Engineering AB (Stockholm)",
+    category: "Tech & Software",
+    amount: -1999.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Mastercard Metal Debit",
+    referenceCode: "POS-TE-SWE-880",
+    icon: "music",
+    note: "Synthesizer & audio engineering workstation",
+    clearingHouse: "Mastercard Global Network"
+  },
+  {
+    id: "tx-2026-02-18-1",
+    date: "2026-02-18",
+    time: "19:00",
+    title: "Equinox Gym & Spa Membership",
+    counterparty: "Equinox Holdings LLC",
+    category: "Dining",
+    amount: -280.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Cyber Virtual Card",
+    referenceCode: "REC-EQX-LON-221",
+    icon: "activity",
+    note: "Monthly executive wellness tier",
+    clearingHouse: "Visa Direct"
+  },
+  {
     id: "tx-2026-02-14-1",
     date: "2026-02-14",
     time: "11:15",
@@ -402,6 +672,25 @@ export const INITIAL_TRANSACTIONS = [
     icon: "arrow-down-left",
     note: "Kubernetes multi-region failover advisory",
     clearingHouse: "EBA CLEARING / RT1 Instant"
+  },
+
+  // --- January 2026 ---
+  {
+    id: "tx-2026-01-22-1",
+    date: "2026-01-22",
+    time: "15:30",
+    title: "Swisscom 5G Ultra Enterprise",
+    counterparty: "Swisscom AG (Bern)",
+    category: "Tech & Software",
+    amount: -95.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "SEPA Direct Debit",
+    referenceCode: "REC-SWISSCOM-190",
+    icon: "wifi",
+    note: "Unlimited European data & roaming",
+    clearingHouse: "SEPA Core Direct Debit"
   },
   {
     id: "tx-2026-01-16-1",
@@ -421,6 +710,42 @@ export const INITIAL_TRANSACTIONS = [
     clearingHouse: "EBA CLEARING / RT1 Instant"
   },
   {
+    id: "tx-2026-01-02-1",
+    date: "2026-01-02",
+    time: "10:00",
+    title: "Düsseldorf Prime Penthouse Rent",
+    counterparty: "Immobilien Königsallee GmbH",
+    category: "Housing",
+    amount: -2450.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "SEPA Direct Debit",
+    referenceCode: "SDD-KALL-2026-01",
+    icon: "home",
+    note: "Monthly residence lease Königsallee 42",
+    clearingHouse: "SEPA Core Direct Debit"
+  },
+
+  // --- December 2025 ---
+  {
+    id: "tx-2025-12-24-1",
+    date: "2025-12-24",
+    time: "18:20",
+    title: "Badrutt's Palace Hotel St. Moritz",
+    counterparty: "Badrutt's Palace Hotel AG",
+    category: "Travel & Transport",
+    amount: -2850.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Mastercard Metal Debit",
+    referenceCode: "POS-BAD-STM-882",
+    icon: "hotel",
+    note: "Alpine winter holiday accommodation",
+    clearingHouse: "Mastercard Global Network"
+  },
+  {
     id: "tx-2025-12-18-1",
     date: "2025-12-18",
     time: "15:00",
@@ -436,6 +761,42 @@ export const INITIAL_TRANSACTIONS = [
     icon: "arrow-down-left",
     note: "End-of-year milestone & advisory bonus",
     clearingHouse: "EBA CLEARING / RT1 Instant"
+  },
+  {
+    id: "tx-2025-12-10-1",
+    date: "2025-12-10",
+    time: "14:15",
+    title: "Holiday Gifting KaDeWe Berlin",
+    counterparty: "The KaDeWe Group GmbH",
+    category: "Dining",
+    amount: -1150.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Apple Pay / Metal Debit",
+    referenceCode: "POS-KDW-BER-771",
+    icon: "gift",
+    note: "End-of-year partner & client appreciation gifts",
+    clearingHouse: "Mastercard Global Network"
+  },
+
+  // --- November 2025 ---
+  {
+    id: "tx-2025-11-20-1",
+    date: "2025-11-20",
+    time: "16:00",
+    title: "Cloudflare Enterprise Mesh",
+    counterparty: "Cloudflare Germany GmbH",
+    category: "Tech & Software",
+    amount: -200.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Cyber Virtual Card",
+    referenceCode: "INV-CF-EMEA-902",
+    icon: "shield",
+    note: "DDoS protection & zero-trust tunneling",
+    clearingHouse: "Visa Direct"
   },
   {
     id: "tx-2025-11-15-1",
@@ -455,6 +816,42 @@ export const INITIAL_TRANSACTIONS = [
     clearingHouse: "EBA CLEARING / RT1 Instant"
   },
   {
+    id: "tx-2025-11-02-1",
+    date: "2025-11-02",
+    time: "10:00",
+    title: "Düsseldorf Prime Penthouse Rent",
+    counterparty: "Immobilien Königsallee GmbH",
+    category: "Housing",
+    amount: -2450.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "SEPA Direct Debit",
+    referenceCode: "SDD-KALL-2025-11",
+    icon: "home",
+    note: "Monthly residence lease Königsallee 42",
+    clearingHouse: "SEPA Core Direct Debit"
+  },
+
+  // --- October 2025 ---
+  {
+    id: "tx-2025-10-24-1",
+    date: "2025-10-24",
+    time: "11:45",
+    title: "Sparkasse ATM Cash Withdrawal",
+    counterparty: "Stadtsparkasse Düsseldorf",
+    category: "Cash & ATM",
+    amount: -300.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "Mastercard Metal Debit",
+    referenceCode: "ATM-SPK-DUS-110",
+    icon: "banknote",
+    note: "EUR 280 cash withdrawal",
+    clearingHouse: "Deutsche Bundesbank"
+  },
+  {
     id: "tx-2025-10-14-1",
     date: "2025-10-14",
     time: "12:00",
@@ -470,6 +867,23 @@ export const INITIAL_TRANSACTIONS = [
     icon: "arrow-down-left",
     note: "Modern cross-border settlement architecture",
     clearingHouse: "EBA CLEARING / RT1 Instant"
+  },
+  {
+    id: "tx-2025-10-02-1",
+    date: "2025-10-02",
+    time: "10:00",
+    title: "Düsseldorf Prime Penthouse Rent",
+    counterparty: "Immobilien Königsallee GmbH",
+    category: "Housing",
+    amount: -2450.00,
+    currency: "USD",
+    type: "outflow",
+    status: "completed",
+    paymentMethod: "SEPA Direct Debit",
+    referenceCode: "SDD-KALL-2025-10",
+    icon: "home",
+    note: "Monthly residence lease Königsallee 42",
+    clearingHouse: "SEPA Core Direct Debit"
   }
 ];
 

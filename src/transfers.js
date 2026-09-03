@@ -1,14 +1,11 @@
-// RBUBANK — Transfers & Payments Execution Hub
-// Handles instant SEPA, International SWIFT, P2P Transfers & Live FX Exchange
+// RBUBANK — Transfers, Instant Top-Up & Live FX Exchange Hub
+// Real SEPA settlement, Apple Pay instant deposits, currency swaps, and contact directory
 
 import { sounds } from './sound.js';
+import { formatCurrency } from './data.js';
 
 export function setupTransfers(user, transactions, onNewTransaction) {
-  const sendModal = document.getElementById('modal-send');
-  const exchangeModal = document.getElementById('modal-exchange');
-  const receiveModal = document.getElementById('modal-receive');
-
-  // Wire up open modal buttons
+  // Open modal triggers
   document.querySelectorAll('[data-action="open-send"]').forEach(btn => {
     btn.addEventListener('click', () => {
       sounds.playTap();
@@ -53,7 +50,7 @@ export function setupTransfers(user, transactions, onNewTransaction) {
     });
   });
 
-  // Quick Amount Buttons
+  // Quick Amount Buttons in Send Modal
   document.querySelectorAll('.quick-amount-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       sounds.playTap();
@@ -90,28 +87,19 @@ export function setupTransfers(user, transactions, onNewTransaction) {
         return;
       }
 
-      // Show processing state
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `
-          <div class="spinner-inline"></div>
-          <span>Routing via SEPA Instant...</span>
-        `;
+        submitBtn.innerHTML = `<span>Routing via SEPA Instant...</span>`;
       }
 
       setTimeout(() => {
-        // Deduct from balance
         user.balances[user.currency] -= amount;
 
-        // Create transaction record
         const now = new Date();
-        const dateStr = now.toISOString().split('T')[0];
-        const timeStr = now.toTimeString().slice(0, 5);
-
         const newTx = {
           id: `tx-${Date.now()}`,
-          date: dateStr,
-          time: timeStr,
+          date: now.toISOString().split('T')[0],
+          time: now.toTimeString().slice(0, 5),
           title: `Transfer to ${recipient}`,
           counterparty: recipient,
           category: "Transfers",
@@ -131,29 +119,79 @@ export function setupTransfers(user, transactions, onNewTransaction) {
 
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = `<span>Send Transfer</span>`;
+          submitBtn.innerHTML = `<span>Send Transfer ⚡</span>`;
         }
 
         closeAllModals();
-
-        // Reset form
         if (amountInput) amountInput.value = "";
         if (noteInput) noteInput.value = "";
 
         if (onNewTransaction) onNewTransaction(newTx);
-
         if (window.showToast) {
           window.showToast(`Sent $${amount.toLocaleString()} to ${recipient} (SEPA Instant ⚡)`);
         }
-      }, 800);
+      }, 600);
     });
   }
 
+  // Handle Instant Apple Pay / Card Top-Up
+  const topUpForm = document.getElementById('topup-funds-form');
+  if (topUpForm) {
+    topUpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const amountInput = document.getElementById('topup-amount-input');
+      const amount = parseFloat(amountInput ? amountInput.value : "1000");
+
+      if (!amount || amount <= 0) return;
+
+      user.balances[user.currency] += amount;
+
+      const now = new Date();
+      const newTx = {
+        id: `tx-${Date.now()}`,
+        date: now.toISOString().split('T')[0],
+        time: now.toTimeString().slice(0, 5),
+        title: "Apple Pay Instant Top-Up",
+        counterparty: "Apple Pay • Card linked",
+        category: "Income",
+        amount: amount,
+        currency: user.currency,
+        type: "inflow",
+        status: "completed",
+        paymentMethod: "Apple Pay",
+        referenceCode: `RBU-APPL-${Math.floor(100000 + Math.random() * 900000)}`,
+        icon: "arrow-down-left",
+        note: "Instant account deposit",
+        clearingHouse: "Mastercard Direct Settlement"
+      };
+
+      transactions.unshift(newTx);
+      sounds.playSuccess();
+      closeAllModals();
+
+      if (amountInput) amountInput.value = "";
+      if (onNewTransaction) onNewTransaction(newTx);
+      if (window.showToast) {
+        window.showToast(`Deposited $${amount.toLocaleString()} via Apple Pay `);
+      }
+    });
+  }
+
+  // Quick Top-Up pills
+  document.querySelectorAll('.quick-topup-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sounds.playTap();
+      const amt = btn.getAttribute('data-amount');
+      const input = document.getElementById('topup-amount-input');
+      if (input) input.value = amt;
+    });
+  });
+
   // Setup Currency Exchange Calculator
-  setupExchangeCalculator(user);
+  setupExchangeCalculator(user, transactions, onNewTransaction);
 }
 
-function setupExchangeCalculator(user) {
+function setupExchangeCalculator(user, transactions, onNewTransaction) {
   const fromInput = document.getElementById('fx-from-amount');
   const toInput = document.getElementById('fx-to-amount');
   const fromSelect = document.getElementById('fx-from-currency');
@@ -195,10 +233,48 @@ function setupExchangeCalculator(user) {
 
   if (confirmBtn) {
     confirmBtn.addEventListener('click', () => {
+      const fromVal = parseFloat(fromInput.value || "0");
+      const cFrom = fromSelect.value;
+      const cTo = toSelect.value;
+
+      if (!fromVal || fromVal <= 0) return;
+      if (fromVal > (user.balances[cFrom] || 0)) {
+        if (window.showToast) window.showToast(`Insufficient ${cFrom} balance`);
+        return;
+      }
+
+      const valInUSD = fromVal / rates[cFrom];
+      const targetVal = valInUSD * rates[cTo];
+
+      user.balances[cFrom] -= fromVal;
+      user.balances[cTo] = (user.balances[cTo] || 0) + targetVal;
+
       sounds.playSuccess();
       closeAllModals();
+
+      const newTx = {
+        id: `tx-${Date.now()}`,
+        date: new Date().toISOString().split('T')[0],
+        time: new Date().toTimeString().slice(0, 5),
+        title: `Currency Swap (${cFrom} ⇄ ${cTo})`,
+        counterparty: "RBU Institutional FX Liquidity",
+        category: "Transfers",
+        amount: -fromVal,
+        currency: cFrom,
+        type: "outflow",
+        status: "completed",
+        paymentMethod: "Interbank Instant Swap",
+        referenceCode: `RBU-FX-${Math.floor(100000 + Math.random() * 900000)}`,
+        icon: "refresh-cw",
+        note: `Exchanged ${formatCurrency(fromVal, cFrom)} for ${formatCurrency(targetVal, cTo)} at 0% markup`,
+        clearingHouse: "CLS Bank Settlement"
+      };
+
+      transactions.unshift(newTx);
+      if (onNewTransaction) onNewTransaction(newTx);
+
       if (window.showToast) {
-        window.showToast(`Exchanged successfully at 0% institutional spread ⚡`);
+        window.showToast(`Exchanged ${formatCurrency(fromVal, cFrom)} ➔ ${formatCurrency(targetVal, cTo)} ⚡`);
       }
     });
   }
@@ -206,9 +282,7 @@ function setupExchangeCalculator(user) {
 
 export function openModal(id) {
   const modal = document.getElementById(id);
-  if (modal) {
-    modal.classList.add('active');
-  }
+  if (modal) modal.classList.add('active');
 }
 
 export function closeAllModals() {

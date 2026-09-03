@@ -1180,3 +1180,79 @@ input, textarea, select {
   from { opacity: 0; transform: translateY(-12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Switch Toggle Component */
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.switch-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-toggle .slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: var(--surface-strong);
+  transition: .25s;
+  border-radius: 24px;
+  border: 1px solid var(--hairline);
+}
+
+.switch-toggle .slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .25s;
+  border-radius: 50%;
+}
+
+.switch-toggle input:checked + .slider {
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
+.switch-toggle input:checked + .slider:before {
+  transform: translateX(20px);
+  background-color: #000;
+}
+
+/* Tab segments for top-up */
+.segmented-control {
+  display: flex;
+  background: var(--surface);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--hairline-soft);
+  margin-bottom: 20px;
+}
+
+.segment-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: none;
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.segment-btn.active {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+}

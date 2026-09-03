@@ -1,21 +1,7 @@
 # RBUBANK — Next-Generation European Digital Banking & Wealth Super-App
 
-> **Investor MVP Edition** — Designed for European VC presentation & Next-Gen Neobanking Architecture.  
-> Inspired by the precision and OLED dark aesthetics of `burpiopus`.
 
----
-
-## 🏛️ Executive Summary
-
-**RBUBANK** is an institutional-grade, mobile-first neobanking and wealth operating system tailored for digital founders, tech executives, and international operators across the European Economic Area (EEA) and Switzerland.
-
-Combining the zero-friction experience of Revolut with the speed of SEPA RT1 Instant settlement and private-banking yield vaults (4.8% APY), RBUBANK bridges traditional fiat rails and modern digital asset treasury.
-
----
-
-## 👤 Denis Rech — Live Personal Cabinet Architecture
-
-The MVP comes preloaded with the verified executive account of **Denis Rech** (`Founder Metal` Tier):
+Preloaded with the verified institutional account of **Denis Rech** (`Founder Metal` Tier):
 
 - **Verified European IBAN**: `DE89 3704 0044 0532 0130 00` (BIC: `RBUBDEFFXXX`)
 - **Active Currencies**: USD (`$38,420.50`), EUR (`€35,248.16`), GBP (`£30,190.20`), CHF (`CHF 34,105.80`)

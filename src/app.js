@@ -1,5 +1,5 @@
 // RBUBANK — Main Application Controller
-// Super-App state management, routing, tabs, and interactions
+// Super-App state management, routing, tabs, multi-currency balances, and transaction flows
 
 import { INITIAL_USER, INITIAL_TRANSACTIONS, MONTHLY_SUMMARY, formatCurrency } from './data.js';
 import { sounds } from './sound.js';
@@ -7,6 +7,10 @@ import { renderCashflowChart } from './charts.js';
 import { setupCardsUI } from './cards.js';
 import { setupTransfers, openModal, closeAllModals } from './transfers.js';
 import { openStatementModal } from './statement.js';
+import { setupProfileModal, openProfileModal } from './profile.js';
+import { setupNotifications } from './notifications.js';
+import { setupVaultsHub } from './vaults.js';
+import { setupInflowsHub, openInflowsModal } from './inflows.js';
 
 class RbubankApp {
   constructor() {
@@ -14,6 +18,7 @@ class RbubankApp {
     this.transactions = JSON.parse(JSON.stringify(INITIAL_TRANSACTIONS));
     this.currentTab = 'home';
     this.activeFilter = 'all';
+    this.activeMonthFilter = 'all';
     this.searchQuery = '';
     this.balanceHidden = false;
     this.activeChartPeriod = '1Y';
@@ -26,24 +31,36 @@ class RbubankApp {
     this.renderInflowBanner();
     this.renderRecents();
     this.renderChart();
+    this.renderMonthFilterOptions();
     this.renderTransactions();
     this.bindTabNavigation();
     this.bindFilters();
     this.bindSearch();
     this.bindTransactionDetails();
 
-    // Initialize modules
-    setupCardsUI(this.user, (card) => this.onCardUpdated(card));
-    setupTransfers(this.user, this.transactions, (tx) => this.onTransactionAdded(tx));
+    // Initialize feature hubs
+    setupProfileModal(this.user);
+    setupNotifications();
+    setupCardsUI(this.user, () => this.renderBalance());
+    setupTransfers(this.user, this.transactions, () => {
+      this.renderBalance();
+      this.renderTransactions();
+      this.renderChart();
+    });
+    setupVaultsHub(this.user, this.transactions, () => {
+      this.renderBalance();
+      this.renderTransactions();
+    });
+    setupInflowsHub(this.user, this.transactions, (tx) => this.showTransactionDetailModal(tx));
 
-    // Expose statement modal trigger
+    // Statement modal trigger
     document.querySelectorAll('[data-action="open-statement"]').forEach(btn => {
       btn.addEventListener('click', () => {
         openStatementModal(this.user, this.transactions);
       });
     });
 
-    console.log("RBUBANK App Initialized for", this.user.name);
+    console.log("RBUBANK European Neobank Initialized for", this.user.name);
   }
 
   bindGlobalToast() {
@@ -73,7 +90,7 @@ class RbubankApp {
     if (tierEl) tierEl.textContent = this.user.tier;
     if (avatarEl) avatarEl.textContent = this.user.avatarInitials;
 
-    // Currency Switcher
+    // Currency Switcher (Cycles USD -> EUR -> GBP -> CHF)
     const currBtn = document.getElementById('currency-toggle-btn');
     if (currBtn) {
       currBtn.addEventListener('click', () => {
@@ -84,19 +101,7 @@ class RbubankApp {
         this.renderBalance();
         this.renderTransactions();
         if (window.showToast) {
-          window.showToast(`Switched active currency to ${this.user.currency}`);
-        }
-      });
-    }
-
-    // Copy IBAN on header click
-    const profileHeader = document.getElementById('user-profile-btn');
-    if (profileHeader) {
-      profileHeader.addEventListener('click', () => {
-        sounds.playTap();
-        navigator.clipboard?.writeText(this.user.iban);
-        if (window.showToast) {
-          window.showToast(`IBAN copied: ${this.user.iban}`);
+          window.showToast(`Active currency: ${this.user.currency}`);
         }
       });
     }
@@ -112,7 +117,7 @@ class RbubankApp {
     const sym = this.user.currency === "EUR" ? "€" : this.user.currency === "GBP" ? "£" : this.user.currency === "CHF" ? "CHF " : "$";
 
     if (symEl) symEl.textContent = sym;
-    if (tagEl) tagEl.textContent = `${this.user.currency} Account`;
+    if (tagEl) tagEl.textContent = `${this.user.currency} Main Account`;
 
     if (this.balanceHidden) {
       if (intEl) intEl.textContent = "••••••";
@@ -136,16 +141,9 @@ class RbubankApp {
   renderInflowBanner() {
     const totalEl = document.getElementById('banner-inflow-total');
     const countEl = document.getElementById('banner-inflow-count');
-    if (totalEl) totalEl.textContent = `$${this.user.metrics.annualInflowTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-    if (countEl) countEl.textContent = `12 monthly inflows ($6k - $8.5k) • Avg $${Math.round(this.user.metrics.monthlyAverageInflow).toLocaleString()}/mo`;
-
-    const banner = document.getElementById('annual-inflow-banner');
-    if (banner) {
-      banner.addEventListener('click', () => {
-        sounds.playTap();
-        this.switchTab('analytics');
-      });
-    }
+    const total = this.user.metrics.annualInflowTotal;
+    if (totalEl) totalEl.textContent = `+$${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    if (countEl) countEl.textContent = `12 monthly inflows ($6k - $8.5k) • Tap to view all 12 months`;
   }
 
   renderRecents() {
@@ -198,6 +196,32 @@ class RbubankApp {
     });
   }
 
+  renderMonthFilterOptions() {
+    const select = document.getElementById('tx-month-filter');
+    if (!select) return;
+
+    // Build unique list of months from transactions
+    const months = ["All Months"];
+    this.transactions.forEach(t => {
+      const ym = t.date.slice(0, 7); // "2026-09"
+      if (!months.includes(ym)) months.push(ym);
+    });
+
+    select.innerHTML = months.map(m => {
+      if (m === "All Months") return `<option value="all">All Months</option>`;
+      const [y, mon] = m.split('-');
+      const d = new Date(y, mon - 1);
+      const name = d.toLocaleString('en-US', { month: 'short', year: 'numeric' });
+      return `<option value="${m}">${name}</option>`;
+    }).join('');
+
+    select.addEventListener('change', (e) => {
+      sounds.playTap();
+      this.activeMonthFilter = e.target.value;
+      this.renderTransactions();
+    });
+  }
+
   renderTransactions() {
     const container = document.getElementById('transactions-list-container');
     if (!container) return;
@@ -215,7 +239,12 @@ class RbubankApp {
       list = list.filter(t => t.paymentMethod.toLowerCase().includes('card') || t.paymentMethod.toLowerCase().includes('apple'));
     }
 
-    // Filter by search
+    // Filter by Month
+    if (this.activeMonthFilter !== 'all') {
+      list = list.filter(t => t.date.startsWith(this.activeMonthFilter));
+    }
+
+    // Filter by Search Query
     if (this.searchQuery.trim()) {
       const q = this.searchQuery.toLowerCase();
       list = list.filter(t => 
@@ -230,8 +259,8 @@ class RbubankApp {
       container.innerHTML = `
         <div style="text-align: center; padding: 40px 20px; color: var(--text-3);">
           <div style="font-size: 28px; margin-bottom: 8px;">🔍</div>
-          <div style="font-size: 14px; font-weight: 600;">No transactions found</div>
-          <div style="font-size: 12px; margin-top: 4px;">Try adjusting your filter or search query</div>
+          <div style="font-size: 14px; font-weight: 600;">No transactions match criteria</div>
+          <div style="font-size: 12px; margin-top: 4px;">Try changing the filter or search term</div>
         </div>
       `;
       return;
@@ -307,12 +336,10 @@ class RbubankApp {
       btn.classList.toggle('active', btn.getAttribute('data-tab') === tabName);
     });
 
-    // Toggle views
     document.querySelectorAll('.tab-view-content').forEach(view => {
       view.style.display = view.getAttribute('data-view') === tabName ? 'block' : 'none';
     });
 
-    // Scroll to top of app content
     const content = document.querySelector('.app-content');
     if (content) content.scrollTop = 0;
   }
@@ -344,18 +371,9 @@ class RbubankApp {
     document.getElementById('modal-tx-status').textContent = tx.status.toUpperCase();
     document.getElementById('modal-tx-ref').textContent = tx.referenceCode;
     document.getElementById('modal-tx-clearing').textContent = tx.clearingHouse || 'EBA RT1 Instant';
-    document.getElementById('modal-tx-note').textContent = tx.note || 'No customer reference note';
+    document.getElementById('modal-tx-note').textContent = tx.note || 'Institutional advisory contract';
 
     modal.classList.add('active');
-  }
-
-  onTransactionAdded(newTx) {
-    this.renderBalance();
-    this.renderTransactions();
-  }
-
-  onCardUpdated(card) {
-    // Card state changed
   }
 }
 
