@@ -30,7 +30,6 @@ class RbubankApp {
     this.bindTabNavigation();
     this.bindFilters();
     this.bindSearch();
-    this.bindPresentationShell();
     this.bindTransactionDetails();
 
     // Initialize modules
@@ -357,42 +356,6 @@ class RbubankApp {
 
   onCardUpdated(card) {
     // Card state changed
-  }
-
-  bindPresentationShell() {
-    const btnMockup = document.getElementById('btn-mode-mockup');
-    const btnFull = document.getElementById('btn-mode-full');
-    const btnLanding = document.getElementById('btn-mode-landing');
-    const shell = document.getElementById('shell-wrapper');
-    const landingView = document.getElementById('landing-view-container');
-    const appShell = document.getElementById('app-shell-container');
-
-    const setMode = (mode) => {
-      sounds.playTap();
-      if (btnMockup) btnMockup.classList.toggle('active', mode === 'mockup');
-      if (btnFull) btnFull.classList.toggle('active', mode === 'full');
-      if (btnLanding) btnLanding.classList.toggle('active', mode === 'landing');
-
-      if (mode === 'landing') {
-        if (landingView) landingView.style.display = 'block';
-        if (appShell) appShell.style.display = 'none';
-      } else {
-        if (landingView) landingView.style.display = 'none';
-        if (appShell) appShell.style.display = 'flex';
-        shell.className = `shell-wrapper ${mode}-mode`;
-      }
-    };
-
-    if (btnMockup) btnMockup.addEventListener('click', () => setMode('mockup'));
-    if (btnFull) btnFull.addEventListener('click', () => setMode('full'));
-    if (btnLanding) btnLanding.addEventListener('click', () => setMode('landing'));
-
-    // Landing CTA: "Open Live Demo" jumps into Denis's Cabinet
-    document.querySelectorAll('[data-action="launch-app"]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        setMode('mockup');
-      });
-    });
   }
 }
 
